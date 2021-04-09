@@ -56,7 +56,6 @@ def accept_decline(fan_id):
             return redirect(url_for('users.follow_request'))
 
 @follows_blueprint.route("/followers/<user_id>", methods=['GET'])
-@login_required
 def followers(user_id):
     user = User.get_by_id(user_id)
     followers = User.select().join(Follow, on=(User.id==Follow.fan)).where(Follow.idol == User.get_by_id(user_id))
@@ -66,7 +65,6 @@ def followers(user_id):
     return render_template('/follows/followers.html', followers=followers, user=user, length_followers=length_followers)
 
 @follows_blueprint.route("/following/<user_id>", methods=['GET'])
-@login_required
 def following(user_id):
     user = User.get_by_id(user_id)
     following = User.select().join(Follow, on=(User.id==Follow.idol)).where(Follow.fan == User.get_by_id(user_id))

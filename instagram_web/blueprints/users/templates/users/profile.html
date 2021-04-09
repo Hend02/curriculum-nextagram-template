@@ -31,11 +31,11 @@
 {% if user.is_private == True and not current_user.id == user.id and not current_user in fans %}
 {% endif %}
 
-{% if not current_user.id == user.id and not current_user in fans %}
+{% if not current_user.id == user.id and not current_user in fans and current_user.is_authenticated %}
     {% include 'follows/follow.html' %}
 {% endif %}
 
-{% if not current_user.id == user.id and current_user in fans %}
+{% if not current_user.id == user.id and current_user in fans and current_user.is_authenticated %}
     {% include 'follows/unfollow.html' %}
 {% endif %}
 
