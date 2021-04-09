@@ -1,0 +1,54 @@
+{% extends '_layout.html' %}
+{% block content %}
+{% if current_user.id == user.id %}
+    <h1 class="ml-4">{{current_user.name}}</h1>
+{% endif %}
+{% if not current_user.id == user.id %}
+    <h1 class="ml-4">{{user.name}}</h1>
+{% endif %}
+    <div class="container-fluid mb-2 pl-4">
+        <div class="card" style="width: 18rem;">
+            <img src="{{user.profile_image}}">
+        </div>
+    </div>
+{% if current_user.id == user.id %}
+    <div class="container-fluid mt-3">
+        <hr>
+        <a href="{{ url_for('follows.followers', user_id=current_user.id)}}" class="ml-4">Followers</a>
+        <a href="{{ url_for('follows.following', user_id=current_user.id)}}" class="ml-4">Following</a>
+        <a href="{{ url_for('images.upload')}}" class="ml-4">Upload Images</a>
+        <a href="{{ url_for('users.edit', id=current_user.id)}}" class="ml-4">Edit Profile</a>
+    </div>
+{% endif %}
+
+{% if user.is_private == False and not current_user.id == user.id or not current_user.id == user.id and current_user in fans %}
+    <div class="container-fluid mt-3">
+        <hr>
+        <a href="{{ url_for('follows.followers', user_id=user.id)}}" class="ml-4">Followers</a>
+        <a href="{{ url_for('follows.following', user_id=user.id)}}" class="ml-4">Following</a>
+    </div>
+{% endif %}
+{% if user.is_private == True and not current_user.id == user.id and not current_user in fans %}
+{% endif %}
+
+{% if not current_user.id == user.id and not current_user in fans %}
+    {% include 'follows/follow.html' %}
+{% endif %}
+
+{% if not current_user.id == user.id and current_user in fans %}
+    {% include 'follows/unfollow.html' %}
+{% endif %}
+
+{% if user.is_private == False and not current_user.id == user.id or not current_user.id == user.id and current_user in fans %}
+    {% include 'users/not_private.html' %}
+{% endif %}
+
+{% if user.is_private == True and not current_user.id == user.id and not current_user in fans %}
+    {% include 'users/private.html' %}
+{% endif %}
+
+{% if current_user.id == user.id %}
+    {% include 'users/not_private.html' %}
+{% endif %}
+
+{% endblock %}

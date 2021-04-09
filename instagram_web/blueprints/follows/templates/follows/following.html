@@ -1,0 +1,19 @@
+{% extends '_layout.html' %}
+{% block content %}
+    <div class="container">
+        <h1>Users {{user.name}} Follows</h1>
+        <ul class="list-group">
+            {% if length_following == 0 %}
+                <li class="list-group-item">
+                    Not Following Anyone
+                </li>
+            {% else %}
+                {% for follower in following %}
+                    <li class="list-group-item">
+                        <a href="{{ url_for('users.show', id=follower.id) }}">{{follower.name}}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}

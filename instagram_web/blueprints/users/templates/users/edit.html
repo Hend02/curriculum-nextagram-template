@@ -1,0 +1,31 @@
+{% extends '_layout.html' %}
+{% block content %}
+<h3 class="ml-3">Edit Profile</h3>
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-lg-4 col-md-8 col-s-12">
+            <form class="ml-3 mr-3" action="{{ url_for('users.update', id = current_user.id)}}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <label for="username">Username:</label>
+                <input type="text" name="username" class="form-control mb-2" value="{{current_user.name}}"/>
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control mb-2" value="{{current_user.email}}"/>
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control mb-2"/>
+                <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+            </form>
+            <form class="ml-3 mr-3" action="{{ url_for('users.update', id = current_user.id)}}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                {% if current_user.is_private == False %}
+                    <input type="submit" name="private" value="Private" class="btn btn-secondary mt-3 d-flex">
+                {% endif %}
+                {% if current_user.is_private == True %}
+                    <input type="submit" name="unprivate" value="Unprivate" class="btn btn-secondary mt-3 d-flex">
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

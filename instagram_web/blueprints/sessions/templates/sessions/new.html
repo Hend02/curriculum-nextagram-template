@@ -1,25 +1,26 @@
 {% extends "_layout.html" %}
 {% block content %}
 
-<h1 class="ml-3">Create New User</h1>
-<div class="container-fluid"> 
+<h1 class="ml-3">Sign In</h1>
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-md-8 col-s-12">
-            <form class="ml-3 mr-3" action= "{{ url_for('users.create') }}" method="POST">
+            <form class="ml-3 mr-3" action="{{ url_for('sessions.create')}}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-                <label for="username">Username:</label>
-                <input type="text" name="username" class="form-control mb-2"/>
                 <label for="email">Email:</label>
                 <input type="email" name="email" class="form-control mb-2"/>
                 <label for="password">Password:</label>
                 <input type="password" name="password" class="form-control mb-2"/>
-                <button type="submit" class="btn btn-primary mt-3">Sign Up</button>
+                <button type="submit" class="btn btn-primary mt-3">Sign In</button>
                 <div>
-                    <small>Already a member?</small>
-                    <a href="/sessions/new"> Sign In here.</a>
+                    <small>Not a member yet?</small>
+                    <a href="/users/new"> Sign Up here.</a>
                 </div>
+            </form>
+            <form class="ml-3 mr-3" action="{{ url_for('sessions.google_login') }}">
+                <button type="submit" class="btn btn-primary mt-3">Sign In with Google</button>
             </form>
         </div>
     </div>
-</div>  
+</div>
 {% endblock %}

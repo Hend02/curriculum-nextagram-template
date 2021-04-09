@@ -1,0 +1,11 @@
+{% extends '_layout.html' %}
+{% block content %}
+<h1>List of Users</h1>
+
+    {% for user in users %}
+        <li>
+            <a href="{{ url_for('users.show', id=user.id) }}">{{user.name}}</a>
+        </li>
+    {% endfor %}
+
+{% endblock %}

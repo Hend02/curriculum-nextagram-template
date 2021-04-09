@@ -1,0 +1,7 @@
+<div class="container-fluid">
+    <form action="{{ url_for('follows.destroy', idol_id=user.id) }}" method="POST">
+        <hr>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="submit" name="unfollow" value="Unfollow" class="btn btn-secondary mt-2 ml-4">
+    </form>
+</div>

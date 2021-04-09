@@ -8,5 +8,16 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Homepage</h1>
+<div class="container-fluid ml-2">
+    <h1>Homepage</h1>
+    {% if current_user.is_authenticated %}
+        <h3>Logged in as {{current_user.name}}</h3>
+    {% endif %}
+        <h3>List of Users</h3>
+    {% for user in users %}
+        <li>
+            <a href="{{ url_for('users.show', id=user.id) }}">{{user.name}}</a>
+        </li>
+    {% endfor %}
+</div>
 {% endblock %}
