@@ -4,8 +4,8 @@ from models.user import User
 from playhouse.hybrid import hybrid_property
 
 class Follow(BaseModel):
-    fan = pw.ForeignKeyField(User)
-    idol = pw.ForeignKeyField(User)
+    fan = pw.ForeignKeyField(User, on_delete='CASCADE')
+    idol = pw.ForeignKeyField(User, on_delete='CASCADE')
 
     @hybrid_property
     def fans(self):
