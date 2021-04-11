@@ -22,7 +22,7 @@ def new(idol_id):
     elif idol.is_private == False:
         follow = Follow(fan = fan, idol = idol )
         if follow.save():
-            flash(f"You are now Following {idol.name}", 'success')
+            flash(f"You are now Following {idol.name}.", 'success')
             return redirect(url_for('users.show', id=idol_id))
     else:
         flash('Something went wrong. Please Try Again.', 'warning')
@@ -35,7 +35,7 @@ def destroy(idol_id):
     fan = User.get_by_id(current_user.id)
     unfollow = Follow.get(fan = fan, idol = idol)
     if unfollow.delete_instance():
-        flash(f"You have Unfollowed {idol.name}", 'danger')
+        flash(f"You have Unfollowed {idol.name}.", 'danger')
         return redirect(url_for('users.show', id=idol_id))
 
 @follows_blueprint.route("/request_delete/<idol_id>/", methods=['POST'])
