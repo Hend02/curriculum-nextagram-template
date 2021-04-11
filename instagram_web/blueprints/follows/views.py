@@ -36,6 +36,16 @@ def destroy(idol_id):
     if unfollow.delete_instance():
         return redirect(url_for('users.show', id=idol_id))
 
+@follows_blueprint.route("/request_delete/<idol_id>/", methods=['POST'])
+@login_required
+def request_delete (idol_id):
+    idol = User.get_by_id(idol_id)
+    fan = User.get_by_id(current_user.id)
+    del_request = FollowRequest.get(fan_request = fan, idol_receive = idol)
+    if del_request.delete_instance():
+        flash('Follow Request has been Deleted.', 'danger')
+        return redirect(url_for('users.show', id=idol_id))
+
 @follows_blueprint.route("/follows/request/<fan_id>", methods=["POST"])
 @login_required
 def accept_decline(fan_id):

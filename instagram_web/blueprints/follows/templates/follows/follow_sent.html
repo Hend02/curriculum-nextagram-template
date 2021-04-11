@@ -1,0 +1,7 @@
+<div class="container-fluid">
+    <form action="{{ url_for('follows.request_delete', idol_id=user.id) }}" method="POST">
+        <hr>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="submit" name="follow_request" value="Follow Request Sent" class="btn btn-primary ml-3">
+    </form>
+</div>

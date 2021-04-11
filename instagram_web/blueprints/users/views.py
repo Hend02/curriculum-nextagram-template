@@ -42,9 +42,10 @@ def create():
 @users_blueprint.route('/<id>', methods=["GET"])
 def show(id):
     idol_id = id
+    fan_request = User.select().join(FollowRequest, on=(User.id==FollowRequest.fan_request)).where(FollowRequest.idol_receive == User.get_by_id(id))
     fans = User.select().join(Follow, on=(User.id==Follow.fan)).where(Follow.idol == User.get_by_id(idol_id))
     user = User.get_by_id(id)
-    return render_template('users/profile.html', user=user, fans=fans, follows=Follow, users=User)
+    return render_template('users/profile.html', user=user, fans=fans, follows=Follow, users=User, fan_request=fan_request)
 
 @users_blueprint.route('/', methods=["GET"])
 def index():

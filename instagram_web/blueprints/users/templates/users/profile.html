@@ -31,12 +31,16 @@
 {% if user.is_private == True and not current_user.id == user.id and not current_user in fans %}
 {% endif %}
 
-{% if not current_user.id == user.id and not current_user in fans and current_user.is_authenticated %}
+{% if not current_user.id == user.id and not current_user in fans and current_user.is_authenticated and not current_user in fan_request %}
     {% include 'follows/follow.html' %}
 {% endif %}
 
 {% if not current_user.id == user.id and current_user in fans and current_user.is_authenticated %}
     {% include 'follows/unfollow.html' %}
+{% endif %}
+
+{% if not current_user.id == user.id and current_user.is_authenticated and current_user in fan_request %}
+    {% include 'follows/follow_sent.html' %}
 {% endif %}
 
 {% if user.is_private == False and not current_user.id == user.id or not current_user.id == user.id and current_user in fans %}
